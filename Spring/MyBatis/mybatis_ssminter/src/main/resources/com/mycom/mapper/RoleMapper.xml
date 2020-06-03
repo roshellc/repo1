@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.mycom.dao.RoleDao">
+    <sql id="selectRole" >select * from sys_role</sql>
+
+    <select id="findAll" resultType="com.mycom.domain.Role">
+       <include refid="selectRole"/>
+    </select>
+
+    <select id="findById" parameterType="Long"  resultType="com.mycom.domain.Role">
+
+        <include refid="selectRole"/>
+          <where>
+              <if test="id!=null">
+                and id = #{id}
+              </if>
+          </where>
+
+    </select>
+
+    <select id="findByIds" parameterType="list" resultType="com.mycom.domain.Role">
+
+        <include refid="selectRole"/>
+          <where>
+                <foreach collection="shi" open="id in (" close=")" item="id" separator=",">
+                    #{id}
+                </foreach>
+          </where>
+    </select>
+
+</mapper>
+
+
